@@ -1,20 +1,19 @@
- ---
-  - name: updating system
-    yum:
-      upgrade: yes
-      update_cache: yes
+---
+ - name: updating system
+   yum:
+     upgrade: yes
+     update_cache: yes
       
-  - name: installing PostreSQL
-    yum:
-      name: '@postgresql'
-      state: present
+ - name: installing PostreSQL
+   yum:
+     name: '@postgresql'
+     state: present
       
-  - name: PostgreSQL initialization
-    command: "postgresql-setup --initdb"
-    
-  - name: enabling PostgreSQL on boot and starting it
-    systemd: 
-      name: postgresql
-      state: started
-      enabled: yes
-  
+ - name: PostgreSQL initialization
+   command: "postgresql-setup --initdb"
+   
+ - name: enabling PostgreSQL on boot and starting it
+   systemd: 
+     name: postgresql
+     state: started
+     enabled: yes
