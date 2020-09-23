@@ -1,9 +1,4 @@
----
- - name: updating system
-   yum:
-     upgrade: yes
-     update_cache: yes
-      
+--- 
  - name: installing PostreSQL
    yum:
      name: '@postgresql'
