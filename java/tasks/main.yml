@@ -1,9 +1,4 @@
 ---
- - name: updating system
-   yum:
-     upgrade: yes
-     update_cache: yes
-      
  - name: installing java8
    yum:
      name: java-1.8.0-openjdk-devel
