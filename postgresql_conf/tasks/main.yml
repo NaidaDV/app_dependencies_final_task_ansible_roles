@@ -1,4 +1,9 @@
 ---
+ - name: adding python adapter library for PostgeSQL
+   yum:
+     name: python3-psycopg2.x86_64
+     state: present
+     
  - name: adding ec2-user role to PostgreSQL
    become_user: postgres
    postgresql_user:
