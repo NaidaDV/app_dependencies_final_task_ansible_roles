@@ -1,0 +1,7 @@
+- name: Installing java, postgres, configuring postgres 
+  hosts: all
+  become: yes
+  roles:
+    - java
+    - postgresql
+    - postgresql_conf
