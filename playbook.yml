@@ -3,5 +3,5 @@
   become: yes
   roles:
     - java
-    - postgresql
+    - postgresql_install
     - postgresql_conf
