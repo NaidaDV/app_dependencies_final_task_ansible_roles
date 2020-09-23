@@ -1,88 +1,87 @@
- ---
-  - name: updating system
-    apt:
-      upgrade: yes
-      update_cache: yes
-
-  - name: adding ec2-user role to PostgreSQL
-    become_user: postgres
-    postgresql_user:
-      name: ec2-user
-      role_attr_flags: CREATEDB,SUPERUSER
-      state: present
+---
+ - name: updating system
+   apt:
+     upgrade: yes
+     update_cache: yes
+     
+ - name: adding ec2-user role to PostgreSQL
+   become_user: postgres
+   postgresql_user:
+     name: ec2-user
+     role_attr_flags: CREATEDB,SUPERUSER
+     state: present
       
-  - name: adding database for ec2-user role
-    become_user: postgres
-    postgresql_db:
-      name: ec2-user
-      owner: ec2-user
-      state: present
+ - name: adding database for ec2-user role
+   become_user: postgres
+   postgresql_db:
+     name: ec2-user
+     owner: ec2-user
+     state: present
       
-  - name: deleteing old pg_hba.conf file
-    file:
-      path: /var/lib/pgsql/data/pg_hba.conf
-      state: absent
+ - name: deleteing old pg_hba.conf file
+   file:
+     path: /var/lib/pgsql/data/pg_hba.conf
+     state: absent
 
-  - name: creating new pg_hba.conf file for PostgreSQL
-    postgresql_pg_hba:
-      dest: /var/lib/pgsql/data/pg_hba.conf
-      contype: local
-      users: postgres
-      databases: all
-      method: trust
-      create: true
+ - name: creating new pg_hba.conf file for PostgreSQL
+   postgresql_pg_hba:
+     dest: /var/lib/pgsql/data/pg_hba.conf
+     contype: local
+     users: postgres
+     databases: all
+     method: trust
+     create: true
 
-  - name: adding permissions for type "local"
-    postgresql_pg_hba:
-      dest: /var/lib/pgsql/data/pg_hba.conf
-      contype: local
-      users: all
-      databases: all
-      method: trust
+ - name: adding permissions for type "local"
+   postgresql_pg_hba:
+     dest: /var/lib/pgsql/data/pg_hba.conf
+     contype: local
+     users: all
+     databases: all
+     method: trust
 
-  - name: adding permissions for type "host" on 127.0.0.1/32
-    postgresql_pg_hba:
-      dest: /var/lib/pgsql/data/pg_hba.conf
-      contype: host
-      users: all
-      source: 127.0.0.1/32
-      databases: all
-      method: trust
+ - name: adding permissions for type "host" on 127.0.0.1/32
+   postgresql_pg_hba:
+     dest: /var/lib/pgsql/data/pg_hba.conf
+     contype: host
+     users: all
+     source: 127.0.0.1/32
+     databases: all
+     method: trust
 
-  - name: adding permissions for type "host" on ::1/128
-    postgresql_pg_hba:
-      dest: /var/lib/pgsql/data/pg_hba.conf
-      contype: host
-      users: all
-      source: ::1/128
-      databases: all
-      method: trust
+ - name: adding permissions for type "host" on ::1/128
+   postgresql_pg_hba:
+     dest: /var/lib/pgsql/data/pg_hba.conf
+     contype: host
+     users: all
+     source: ::1/128
+     databases: all
+     method: trust
 
-  - name: adding permissions for type "local" for db "replication"
-    postgresql_pg_hba:
-      dest: /var/lib/pgsql/data/pg_hba.conf
-      contype: local
-      users: all
-      databases: replication
-      method: peer
+ - name: adding permissions for type "local" for db "replication"
+   postgresql_pg_hba:
+     dest: /var/lib/pgsql/data/pg_hba.conf
+     contype: local
+     users: all
+     databases: replication
+     method: peer
+     
+ - name: adding permissions for type "host" for db "replication" on 127.0.0.1/32
+   postgresql_pg_hba:
+     dest: /var/lib/pgsql/data/pg_hba.conf
+     contype: host
+     users: all
+     source: 127.0.0.1/32
+     databases: replication
+     method: ident
 
-  - name: adding permissions for type "host" for db "replication" on 127.0.0.1/32
-    postgresql_pg_hba:
-      dest: /var/lib/pgsql/data/pg_hba.conf
-      contype: host
-      users: all
-      source: 127.0.0.1/32
-      databases: replication
-      method: ident
-
-  - name: adding permissions for type "host" for db "replication" on ::1/128, restarting PostgreSQL
-    postgresql_pg_hba:
-      dest: /var/lib/pgsql/data/pg_hba.conf
-      contype: host
-      users: all
-      source: ::1/128
-      databases: replication
-      method: ident
-    notify:
-      - restarting postgresql      
-      
+ - name: adding permissions for type "host" for db "replication" on ::1/128, restarting PostgreSQL
+   postgresql_pg_hba:
+     dest: /var/lib/pgsql/data/pg_hba.conf
+     contype: host
+     users: all
+     source: ::1/128
+     databases: replication
+     method: ident
+   notify:
+     - restarting postgresql      
