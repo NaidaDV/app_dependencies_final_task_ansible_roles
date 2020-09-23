@@ -1,9 +1,4 @@
 ---
- - name: updating system
-   apt:
-     upgrade: yes
-     update_cache: yes
-     
  - name: adding ec2-user role to PostgreSQL
    become_user: postgres
    postgresql_user:
