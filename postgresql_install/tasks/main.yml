@@ -1,11 +1,20 @@
---- 
- - name: installing PostreSQL
-   yum:
-     name: '@postgresql'
+---  
+ - name: create the file repository configuration
+   command: sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+   
+ - name: import the repository signing key
+   apt_key: 
+     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc 
      state: present
+     
+ - name: updating system
+   apt:
+     upgrade: yes
       
- - name: PostgreSQL initialization
-   command: "postgresql-setup --initdb"
+ - name: installing postgresql
+   apt: 
+     name: postgresql 
+     state: latest
    
  - name: enabling PostgreSQL on boot and starting it
    systemd: 
