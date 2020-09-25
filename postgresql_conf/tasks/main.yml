@@ -1,31 +1,31 @@
 ---
  - name: adding python adapter library for PostgeSQL
-   yum:
-     name: python3-psycopg2.x86_64
+   apt:
+     name: python-psycopg2
      state: present
      
- - name: adding ec2-user role to PostgreSQL
+ - name: adding ubuntu role to PostgreSQL
    become_user: postgres
    postgresql_user:
-     name: ec2-user
+     name: ubuntu
      role_attr_flags: CREATEDB,SUPERUSER
      state: present
       
  - name: adding database for ec2-user role
    become_user: postgres
    postgresql_db:
-     name: ec2-user
-     owner: ec2-user
+     name: ubuntu
+     owner: ubuntu
      state: present
       
  - name: deleteing old pg_hba.conf file
    file:
-     path: /var/lib/pgsql/data/pg_hba.conf
+     path: /etc/postgresql/12/main/pg_hba.conf
      state: absent
 
  - name: creating new pg_hba.conf file for PostgreSQL
    postgresql_pg_hba:
-     dest: /var/lib/pgsql/data/pg_hba.conf
+     dest: /etc/postgresql/12/main/pg_hba.conf
      contype: local
      users: postgres
      databases: all
@@ -34,7 +34,7 @@
 
  - name: adding permissions for type "local"
    postgresql_pg_hba:
-     dest: /var/lib/pgsql/data/pg_hba.conf
+     dest: /etc/postgresql/12/main/pg_hba.conf
      contype: local
      users: all
      databases: all
@@ -42,7 +42,7 @@
 
  - name: adding permissions for type "host" on 127.0.0.1/32
    postgresql_pg_hba:
-     dest: /var/lib/pgsql/data/pg_hba.conf
+     dest: /etc/postgresql/12/main/pg_hba.conf
      contype: host
      users: all
      source: 127.0.0.1/32
@@ -51,7 +51,7 @@
 
  - name: adding permissions for type "host" on ::1/128
    postgresql_pg_hba:
-     dest: /var/lib/pgsql/data/pg_hba.conf
+     dest: /etc/postgresql/12/main/pg_hba.conf
      contype: host
      users: all
      source: ::1/128
@@ -60,7 +60,7 @@
 
  - name: adding permissions for type "local" for db "replication"
    postgresql_pg_hba:
-     dest: /var/lib/pgsql/data/pg_hba.conf
+     dest: /etc/postgresql/12/main/pg_hba.conf
      contype: local
      users: all
      databases: replication
@@ -68,7 +68,7 @@
      
  - name: adding permissions for type "host" for db "replication" on 127.0.0.1/32
    postgresql_pg_hba:
-     dest: /var/lib/pgsql/data/pg_hba.conf
+     dest: /etc/postgresql/12/main/pg_hba.conf
      contype: host
      users: all
      source: 127.0.0.1/32
@@ -77,7 +77,7 @@
 
  - name: adding permissions for type "host" for db "replication" on ::1/128, restarting PostgreSQL
    postgresql_pg_hba:
-     dest: /var/lib/pgsql/data/pg_hba.conf
+     dest: /etc/postgresql/12/main/pg_hba.conf
      contype: host
      users: all
      source: ::1/128
