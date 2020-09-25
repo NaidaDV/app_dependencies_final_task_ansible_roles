@@ -1,5 +1,5 @@
 ---
- - name: installing java8
+ - name: installing openjdk-8-jdk
    yum:
-     name: java-1.8.0-openjdk-devel
+     name: openjdk-8-jdk
      state: present
