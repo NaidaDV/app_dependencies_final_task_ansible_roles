@@ -20,12 +20,12 @@
       
  - name: deleteing old pg_hba.conf file
    file:
-     path: /etc/postgresql/12/main/pg_hba.conf
+     path: /etc/postgresql/10/main/pg_hba.conf
      state: absent
 
  - name: creating new pg_hba.conf file for PostgreSQL
    postgresql_pg_hba:
-     dest: /etc/postgresql/12/main/pg_hba.conf
+     dest: /etc/postgresql/10/main/pg_hba.conf
      contype: local
      users: postgres
      databases: all
@@ -34,7 +34,7 @@
 
  - name: adding permissions for type "local"
    postgresql_pg_hba:
-     dest: /etc/postgresql/12/main/pg_hba.conf
+     dest: /etc/postgresql/10/main/pg_hba.conf
      contype: local
      users: all
      databases: all
@@ -42,7 +42,7 @@
 
  - name: adding permissions for type "host" on 127.0.0.1/32
    postgresql_pg_hba:
-     dest: /etc/postgresql/12/main/pg_hba.conf
+     dest: /etc/postgresql/10/main/pg_hba.conf
      contype: host
      users: all
      source: 127.0.0.1/32
@@ -51,7 +51,7 @@
 
  - name: adding permissions for type "host" on ::1/128
    postgresql_pg_hba:
-     dest: /etc/postgresql/12/main/pg_hba.conf
+     dest: /etc/postgresql/10/main/pg_hba.conf
      contype: host
      users: all
      source: ::1/128
@@ -60,7 +60,7 @@
 
  - name: adding permissions for type "local" for db "replication"
    postgresql_pg_hba:
-     dest: /etc/postgresql/12/main/pg_hba.conf
+     dest: /etc/postgresql/10/main/pg_hba.conf
      contype: local
      users: all
      databases: replication
@@ -68,7 +68,7 @@
      
  - name: adding permissions for type "host" for db "replication" on 127.0.0.1/32
    postgresql_pg_hba:
-     dest: /etc/postgresql/12/main/pg_hba.conf
+     dest: /etc/postgresql/10/main/pg_hba.conf
      contype: host
      users: all
      source: 127.0.0.1/32
@@ -77,7 +77,7 @@
 
  - name: adding permissions for type "host" for db "replication" on ::1/128, restarting PostgreSQL
    postgresql_pg_hba:
-     dest: /etc/postgresql/12/main/pg_hba.conf
+     dest: /etc/postgresql/10/main/pg_hba.conf
      contype: host
      users: all
      source: ::1/128
