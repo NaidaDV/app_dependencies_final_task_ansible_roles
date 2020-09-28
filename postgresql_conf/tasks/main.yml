@@ -64,7 +64,7 @@
      contype: local
      users: all
      databases: replication
-     method: peer
+     method: trust
      
  - name: adding permissions for type "host" for db "replication" on 127.0.0.1/32
    postgresql_pg_hba:
@@ -73,7 +73,7 @@
      users: all
      source: 127.0.0.1/32
      databases: replication
-     method: ident
+     method: trust
 
  - name: adding permissions for type "host" for db "replication" on ::1/128, restarting PostgreSQL
    postgresql_pg_hba:
@@ -82,6 +82,6 @@
      users: all
      source: ::1/128
      databases: replication
-     method: ident
+     method: trust
    notify:
      - restarting postgresql      
