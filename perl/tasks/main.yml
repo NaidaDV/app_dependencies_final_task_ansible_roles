@@ -19,5 +19,5 @@
      name: libxml-sax-perl
      state: latest   
 
-  - name: install libxml-sax-perl
-    command: "cpan XML::Parser::PerlSAX Text::Glob Cwd Getopt::Std"   
+ - name: install libxml-sax-perl
+   command: "cpan XML::Parser::PerlSAX Text::Glob Cwd Getopt::Std"   
