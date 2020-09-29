@@ -5,3 +5,4 @@
     - java
     - postgresql_install
     - postgresql_conf
+    - perl

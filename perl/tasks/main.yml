@@ -1,0 +1,23 @@
+---
+ - name: install perl
+   apt: 
+     name: perl
+     state: latest
+   
+ - name: install libxml-perl
+   apt:
+     name: libxml-perl
+     state: latest
+ 
+ - name: install libtext-glob-perl
+   apt:
+     name: libtext-glob-perl
+     state: latest
+
+ - name: install libxml-sax-perl
+   apt:
+     name: libxml-sax-perl
+     state: latest   
+
+  - name: install libxml-sax-perl
+    command: "cpan XML::Parser::PerlSAX Text::Glob Cwd Getopt::Std"   
