@@ -11,7 +11,7 @@
      role_attr_flags: CREATEDB,SUPERUSER
      state: present
       
- - name: adding database for ec2-user role
+ - name: adding database for ubuntu role
    become_user: postgres
    postgresql_db:
      name: ubuntu
