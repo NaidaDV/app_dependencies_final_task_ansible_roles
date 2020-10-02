@@ -13,7 +13,7 @@
       
  - name: installing postgresql
    apt: 
-     name: postgresql 
+     name: postgresql-10 
      state: latest
    
  - name: enabling PostgreSQL on boot and starting it
